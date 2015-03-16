@@ -8,18 +8,19 @@
 //tools
 #include "tools/StringManipulation.h"
 size_t	Bot::identificasuperregiuneobiectiv(){	// indicele superregiunii din care imi lipsesc cat mai putine, dar imi lipseste ceva
-	size_t catam[100];	// cat detin din fiecare superregiune;
+	size_t catam[50];	// cat detin din fiecare superregiune;
 	size_t i,j,k;
-	for ( i= 0; i<100; i++)
+	for ( i= 0; i<50; i++)
 		catam[i] = 0;
-	for (i = 0 ; i< ownedRegions.size(); ++i)
+	for (i = 0 ; i < ownedRegions.size(); ++i)
 		catam[regions[i].getSuperRegion()]++;
-	size_t aux = 100,ret =0;
-	for ( i = 0 ; i< 100 ; i++)
+	size_t aux = 100,ret = 300;
+	for ( i = 0 ; i < 50 ; i++)
 		if( ( superRegions[i].size() > catam[i] ) && ( aux > (superRegions[i].size() - catam[i])) ){
 			aux = superRegions[i].size() - catam[i];
 			ret = i;
 		}
+//	std::cout<<" regiuneobiectiv = "<< ret<< " ";fflush(stdin);
 	return ret;
 }
 void Bot::creazaproiecte(int pass){	
@@ -27,30 +28,53 @@ void Bot::creazaproiecte(int pass){
 	// pass = 1 pentru a ataca orice.
 	size_t i,j,rc,nc;
 	int placenr, movenr;
+	int ncsalvat = 0;
 	size_t superregiune_obiectiv;
-	if(pass == 1)
+	if(pass == 0)
 		superregiune_obiectiv = Bot::identificasuperregiuneobiectiv();
-	for ( i = 0 ; i < ownedRegions.size(); ++i){
+	if( (superregiune_obiectiv == 300) && (pass == 0))
+		return;
+	for ( i = 0 ; i < ownedRegions.size(); ++i)
+//	if(regions[ownedRegions[i]].getSuperRegion() == superregiune_obiectiv || pass)
+	{
 		rc = ownedRegions[i];	// regiunea curenta;
 		for( j = 0; j < regions[rc].getNbNeighbors(); ++j){
 			nc = regions[rc].getNeighbor(j);
-			if(regions[nc].getOwner() != ME && 
+			if( (regions[nc].getOwner() != ME) && 
 					( (regions[nc].getSuperRegion() == superregiune_obiectiv)
 					  || (pass == 1)
 					  )
 					)
-				if(regions[nc].getArmies() * 14 < (regions[rc].getArmies() - 1 + armiesLeft) * 10){
-					movenr = regions[nc].getArmies()*14/10 + 1;
-					placenr = movenr +1 - regions[rc].getArmies();
+				if(nrarmate[nc] * 14 < (nrarmate[rc] - 1 + armiesLeft) * 10){
+					movenr = nrarmate[nc]*14/10 + 1;
+					placenr = movenr +1 - nrarmate[rc];
+					while(placenr > armiesLeft)
+						placenr--;
+					if( nrarmate[rc] > 30 ) {
+						placenr = armiesLeft;
+						movenr = placenr + nrarmate[rc] -1;
+					}
 					(placenr < 0)?0:placenr;
 					proiecte.push_back( proiect(rc, placenr, rc, nc, movenr, 3) );
-					regions[rc].setArmies( (movenr>=regions[rc].getArmies())? 1: (regions[rc].getArmies()-movenr) );
+					nrarmate[rc] -= movenr -1 - placenr; 
 					// a modificat regions.Armies ca sa nu se bazeze pe armatele respective in urmatoarele mutari!
 					armiesLeft -= placenr;
 					// a modificat si armiesLeft ca su nu mai faca proiecte. Va trebui schimbat asta in momentul in care sunt folosite prioritatile.
+//					std::cout<<"gasit proiect de atac movenr = "<<movenr<<" placenr = "<<placenr<< " nc = "<<nc<< " ";
+//					fflush(stdin);
+					if(movenr)
+						ammutari = 1;
 				}
+//				else if (pass == 0 && armiesLeft > 0)
+//					ncsalvat = rc;
 		}
 	}
+//	if( ncsalvat && armiesLeft ){
+//		placenr = armiesLeft;
+//		armiesLeft = 0;
+//		proiecte.push_back(proiect(rc, placenr, rc, nc, 0, 0));
+//	}
+
 }
 Bot::Bot() :
 		armiesLeft(0), timebank(0), timePerMove(0), maxRounds(0), parser(this), phase(NONE)
@@ -75,13 +99,45 @@ void Bot::pickStartingRegion()
 
 void Bot::placeArmies()
 {
-	for( size_t i = 0 ; i <proiecte.size(); ++i)
-		if(proiecte[i].placenr){
+	size_t i, j;
+	proiecte.clear();
+	for( i = 0; i < regions.size(); ++i)
+		nrarmate[i] = regions[i].getArmies();
+	ammutari = 0;
+	creazaproiecte(0);
+	creazaproiecte(1);
+	int pus1 = 0;
+	if(proiecte.size() > 0 && proiecte.size() < 20)
+	for( i = 0 ; i <proiecte.size(); ++i)
+		if(proiecte[i].placenr > 0 && proiecte[i].placein > 0 && regions[proiecte[i].placein].getOwner() == ME){
+			if(pus1)
+				std::cout << ",";
+			else
+				pus1 = 1;
 			std::cout << botName << " place_armies " << proiecte[i].placein << " " << proiecte[i].placenr;
 		}
 	// START HERE!
-	if(armiesLeft >0){
-		unsigned region = std::rand() % ownedRegions.size();
+	if(armiesLeft > 0){
+		for( i = 0; i< ownedRegions.size(); ++i)
+			for (j = 0; j< regions[ownedRegions[i]].getNbNeighbors(); ++j)
+				if( (regions[regions[ownedRegions[i]].getNeighbor(j)].getOwner() == ENEMY) && armiesLeft ){
+					if(pus1)
+						std::cout << ",";
+					else
+						pus1 = 1;
+					std::cout << botName << " place_armies " << ownedRegions[i] << " " << armiesLeft;
+					armiesLeft = 0;
+					i = ownedRegions.size();
+					break;
+				}
+	}
+	unsigned region;
+	if(armiesLeft > 0){
+		if(pus1)
+			std::cout << ",";
+		else
+			pus1 = 1;
+		region = ownedRegions[1];//std::rand() % ownedRegions.size();
 		std::cout << botName << " place_armies " << ownedRegions[region] << " " << armiesLeft;
 	}
 	std::cout << std::endl;
@@ -97,6 +153,7 @@ void Bot::makeMoves()
 	//  std::cout << botName << " attack/transfer " << from << " " << to << " "<< armiesMoved;
 	/// When outputting multiple moves they must be seperated by a comma
 	std::vector<std::string> moves;
+	if(ammutari)
 	for (size_t i = 0; i < proiecte.size(); ++i)
 		if(proiecte[i].movenr){
 			std::stringstream move;
@@ -104,6 +161,8 @@ void Bot::makeMoves()
 			move << botName << " attack/transfer " << proiecte[i].movefrom << " " << proiecte[i].moveto << " " << proiecte[i].movenr;
 			moves.push_back(move.str());
 		}
+	if((ammutari == 0) || (proiecte.size() == 0))
+		moves.push_back("No moves");
 	proiecte.clear();
 /*
 	for (size_t j = 0; j < ownedRegions.size(); ++j)
@@ -154,6 +213,8 @@ void Bot::addSuperRegion(const unsigned& noSuperRegion, const int&reward)
 		superRegions.push_back(SuperRegion());
 	}
 	superRegions[noSuperRegion] = SuperRegion(reward);
+	rewardsuperregiuni[noSuperRegion] = reward;
+
 }
 
 void Bot::setBotName(const std::string& name)
