@@ -35,6 +35,9 @@ public:
 	std::vector<proiect> proiecte;
 	size_t identificasuperregiuneobiectiv();
 	void creazaproiecte(int pass);
+	int nrarmate[1000];
+	int ammutari;
+	int rewardsuperregiuni[1000];
 	Bot();
 	virtual ~Bot();
 
