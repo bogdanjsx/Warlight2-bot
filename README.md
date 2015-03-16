@@ -1,30 +1,5 @@
-warlight2-starterbot
+Gonna Bit you NP-Hard team's Warlight 2 bot
 ===================
-
-AIGames warlight2 C++ starter bot
-
-Basics
-------
-
-This is a starter bot for 
-http://theaigames.com/competitions/warlight-ai-challenge-2
-
-Basic documentation and infos on how to get started can be found there.
-
-This bot just implements the communication with the game and saves you from starting by scratch.
-This has a parser that implments the complete engine communication protocol and 
-has datastructures which represent the different objet in the game
-
-Getting the Bot
----------------
-
-Either clone the bot with 
-```
-git clone https://github.com/pizzard/warlight-starterbot.git your-bot-dir
-```
-or download the zip file at 
-https://github.com/pizzard/warlight-starterbot/archive/master.zip
-
 
 Getting Started
 ---------------
@@ -180,9 +155,3 @@ The online compiler is g++ 4.9 in a recent version, it does compile your bot wit
 You can use subdirectories, but you have to care that in the zip file, the files are plced directly
 in the zip files root and not in a subdirectory, otherwise your includes won't work.
 make zip does take care of that for you
-
-
-
-
-
-
