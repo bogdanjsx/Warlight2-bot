@@ -42,6 +42,11 @@ Requirements are:
 You don't need to install the whole QT5 framework, the bot does not use it, just look
 for a qt5-qmake standalone package.
 
+In order to install qt5-qmake just type into your terminal:
+```bash
+sudo apt-get install qt5-default
+```
+
 Then just go to the source directory of your bot.
 ```bash
 mkdir -p build # creates the build dir
