@@ -35,7 +35,7 @@ public:
 	 */
 	unsigned get_min_distance(const unsigned& fromRegion, const unsigned& toRegion);
 	/**
-	 * Gets all the regions on the shortest road between 2 region
+	 * Gets all the regions on the shortest road between 2 regions
 	 * @param ID of source region
 	 * @param ID of destination region
 	 * @return A vector containing IDs of all regions on the road
@@ -43,8 +43,10 @@ public:
 	std::vector<unsigned> road_to(const unsigned& fromRegion, const unsigned& toRegion);
 
 private:
-	std::vector<unsigned> front_distances;
+	std::vector<unsigned> frontDistances;
 	std::vector<std::vector<unsigned> > distances;
+	// holds minimum roads after they are calculated
+	std::vector<std::vector<unsigned> > roads;
 
 	MapSearch();
 	virtual ~MapSearch();
