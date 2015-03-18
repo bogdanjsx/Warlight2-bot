@@ -19,15 +19,15 @@ public:
     /**
      * Constructor used when moving from one region to another is wanted
      */
-    Movement(const int& priority, const int& moveFrom, const int& moveTo, const int& armiesNeeded);
+    Movement(const double& priority, const int& moveFrom, const int& moveTo, const int& armiesNeeded);
     /**
      * Constructor used when the intention is to only place part of the income troops
      * on a specific region that you already own
      */
-    Movement(const int& priority, const int& placeIn, const int& armiesNeeded);
+    Movement(const double& priority, const int& placeIn, const int& armiesNeeded);
     virtual ~Movement();
 
-    void setPriority(const int& priority) { this->priority = priority; }
+    void setPriority(const double& priority) { this->priority = priority; }
     /**
      * Set source and destination for a next army movement on the map
      * @param sourceRegion id of the starting region
@@ -44,13 +44,13 @@ public:
      */
     void setArmiesNeeded(const int& armies) { this->armiesNeeded = armies; }
 
-    inline int getPriority() const { return priority; }
+    inline double getPriority() const { return priority; }
     inline int getArmiesNeeded() const { return armiesNeeded; }
     inline int getPlaceInRegion() const { return placeIn; }
     inline std::pair<int, int> getMoveCoordinates() const;
 
 private:
-    int priority;
+    double priority;
     int moveFrom;
     int moveTo;
     int placeIn;

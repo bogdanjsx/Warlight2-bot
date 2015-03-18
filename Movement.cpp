@@ -10,7 +10,7 @@ Movement::Movement()
 {
 }
 
-Movement::Movement(const int& priority, const int& moveFrom, const int& moveTo, const int& armiesNeeded)
+Movement::Movement(const double& priority, const int& moveFrom, const int& moveTo, const int& armiesNeeded)
     : priority(priority)
     , moveFrom(moveFrom)
     , moveTo(moveTo)
@@ -19,7 +19,7 @@ Movement::Movement(const int& priority, const int& moveFrom, const int& moveTo, 
 {
 }
 
-Movement::Movement(const int& priority, const int& placeIn, const int& armiesNeeded)
+Movement::Movement(const double& priority, const int& placeIn, const int& armiesNeeded)
     : priority(priority)
     , moveFrom(0)
     , moveTo(0)
