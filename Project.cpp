@@ -25,10 +25,10 @@ void Project::addMovement(const Movement& move)
     movements.push_back(move);
 }
 
-void Project::delMovement(const std::vector<Movement>::iterator& it)
+void Project::delMovement(const unsigned int& index)
 {
-    if (it >= movements.begin() && it < movements.end())
-        movements.erase(it);
+    if (index < movements.size())
+        movements.erase(movements.begin() + index);
 }
 
 void Project::setMovements(const std::vector<Movement>& movements)

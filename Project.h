@@ -26,7 +26,7 @@ public:
      * @param move the specific Movement to add
      */
     void addMovement(const Movement& move);
-    void delMovement(const std::vector<Movement>::iterator& it);
+    void delMovement(const unsigned int& index);
 
     void setMovements(const std::vector<Movement>& movements);
     void resetMovements();
