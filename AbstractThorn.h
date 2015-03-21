@@ -1,8 +1,6 @@
 #ifndef ABSTRACTTHORN_H
 #define ABSTRACTTHORN_H
 
-#include <vector>
-#include <cstring>
 #include "Action.h"
 
 /*
@@ -15,7 +13,7 @@ class AbstractThorn : public virtual Action {
 public:
 	// no parameters
 	std::string getType() const { return type; }
-	std::vector<Project> getProjects();
+	std::vector<int> getProjects();
 protected:
 	std::string type = "thorn";
 };

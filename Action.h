@@ -15,7 +15,7 @@
 	These classes will deal a lot with Mapsearch class for interogations.
 */
 
-#include "Project.h"
+//#include "Project.h"
 #include <cstring>
 #include <vector>
 
@@ -30,14 +30,14 @@ class Action {
 			return string with the name of the actual implementation of the object
 			// may be changed with an enum afterwards
 		*/
-		std::string getType() = 0;
+		virtual std::string getType() = 0;
 		
 		/*
 			Computes, based on some models and queries, the way the bot make moves. 
 			return a vector of projects which are in fact o bunch of movements but somehow linked 
 			within a strategy of whatever the object is supposed to do.
 		*/
-		std::vector<Project> getProjects() = 0; 
+		virtual std::vector<int> getProjects() = 0; 
 };
 
 #endif

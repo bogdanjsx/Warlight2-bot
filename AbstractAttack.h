@@ -1,8 +1,7 @@
 #ifndef ABSTRACTATTACK_H
 #define ABSTRACTATTACK_H
 
-#include <vector>
-#include <cstring>
+
 #include "Action.h"
 
 /*
@@ -11,11 +10,11 @@
 	can attack the enemy.
 */
 
-class AbstractATTACK : public virtual Action {
+class AbstractAttack : public virtual Action {
 public:
 	// no parameters
 	std::string getType() const { return type; }
-	std::vector<Project> getProjects();
+	std::vector<int> getProjects();
 protected:
 	std::string type = "attack";
 };
