@@ -13,7 +13,7 @@ class AbstractDefence : public virtual Action {
 public:
 	// no parameters
 	std::string getType() const { return type; }
-	std::vector<int> getProjects();
+	std::vector<Project> getProjects();
 protected:
 	std::string type = "defence";
 };

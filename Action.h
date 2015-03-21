@@ -15,7 +15,7 @@
 	These classes will deal a lot with Mapsearch class for interogations.
 */
 
-//#include "Project.h"
+#include "Project.h"
 #include <cstring>
 #include <vector>
 
@@ -37,7 +37,7 @@ class Action {
 			return a vector of projects which are in fact o bunch of movements but somehow linked 
 			within a strategy of whatever the object is supposed to do.
 		*/
-		virtual std::vector<int> getProjects() = 0; 
+		virtual std::vector<Project> getProjects() = 0; 
 };
 
 #endif
