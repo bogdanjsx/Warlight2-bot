@@ -24,7 +24,20 @@ public:
 	{
 		NONE, PICK_STARTING_REGION, PLACE_ARMIES, ATTACK_TRANSFER
 	};
-
+	struct proiect{
+	int placein,placenr;
+	int movefrom,moveto,movenr;
+	int prioritate;	// prioritate 0 inseamna neglijabil.
+	proiect():placein(0),placenr(0),movefrom(0),moveto(0),movenr(0),prioritate(0) {}
+	proiect(int placein, int placenr, int movefrom, int moveto, int movenr, int prioritate) : 
+		placein(placein),placenr(placenr),movefrom(movefrom),moveto(moveto),movenr(movenr),prioritate(prioritate) {}
+	};
+	std::vector<proiect> proiecte;
+	size_t identificasuperregiuneobiectiv();
+	void creazaproiecte(int pass);
+	int nrarmate[1000];
+	int ammutari;
+	int rewardsuperregiuni[1000];
 	Bot();
 	virtual ~Bot();
 
