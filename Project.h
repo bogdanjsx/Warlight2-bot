@@ -7,11 +7,6 @@
 #include <iterator>
 
 // project
-#include "Bot.h"
-#include "main.h"
-#include "Parser.h"
-#include "Region.h"
-#include "SuperRegion.h"
 #include "Movement.h"
 
 class Project

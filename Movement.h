@@ -5,13 +5,6 @@
 #include <utility>
 #include <iostream>
 
-// project 
-#include "Bot.h"
-#include "main.h"
-#include "Parser.h"
-#include "Region.h"
-#include "SuperRegion.h"
-
 class Movement
 {
 public:
