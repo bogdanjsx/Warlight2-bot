@@ -21,23 +21,27 @@
 
 
 
-class Action {
-	public:
-		/*
-			Determine the name of the object in question.
-			
-			No parameter	
-			return string with the name of the actual implementation of the object
-			// may be changed with an enum afterwards
-		*/
-		virtual std::string getType() = 0;
+class Action 
+{
+public:
+	/*
+		Determine the name of the object in question.
 		
-		/*
-			Computes, based on some models and queries, the way the bot make moves. 
-			return a vector of projects which are in fact o bunch of movements but somehow linked 
-			within a strategy of whatever the object is supposed to do.
-		*/
-		virtual std::vector<Project> getProjects() = 0; 
+		No parameter	
+		return string with the name of the actual implementation of the object
+		// may be changed with an enum afterwards
+	*/
+	virtual std::string getType() = 0;
+	
+	/*
+		Computes, based on some models and queries, the way the bot make moves. 
+		return a vector of projects which are in fact o bunch of movements but somehow linked 
+		within a strategy of whatever the object is supposed to do.
+	*/
+	virtual std::vector<Project> getProjects() = 0; 
+	Action() {}
+	virtual ~Action() {}
+
 };
 
 #endif

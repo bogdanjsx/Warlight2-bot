@@ -9,11 +9,11 @@
 	can deffend against the enemmy.
 */
 
-class AbstractDefence : public virtual Action {
+class AbstractDefence : public virtual Action 
+{
 public:
 	// no parameters
-	std::string getType() const { return type; }
-	std::vector<Project> getProjects();
+	virtual std::string getType() const { return type; }
 protected:
 	std::string type = "defence";
 };

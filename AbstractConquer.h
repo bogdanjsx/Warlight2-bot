@@ -9,11 +9,11 @@
 	can develop and conquer a superregion.
 */
 
-class AbstractConquer : public virtual Action {
+class AbstractConquer : public virtual Action 
+{
 public:
 	// no parameters
-	std::string getType() const { return type; }
-	std::vector<Project> getProjects();
+	virtual std::string getType() const { return type; }
 
 protected:
 	std::string type = "conquer";
