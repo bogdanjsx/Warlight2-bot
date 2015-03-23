@@ -24,5 +24,5 @@ zip.depends = starterbot
 QMAKE_EXTRA_TARGETS += zip
 
 # Input
-SOURCES += Bot.cpp main.cpp Parser.cpp Region.cpp SuperRegion.cpp Movement.cpp Project.cpp
+SOURCES += Bot.cpp main.cpp Parser.cpp Region.cpp SuperRegion.cpp Movement.cpp Project.cpp MapSearch.cpp Conquerer.cpp Attacker.cpp Defender.cpp Thorner.cpp
 
