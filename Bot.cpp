@@ -7,12 +7,12 @@
 
 //tools
 #include "tools/StringManipulation.h"
-size_t	Bot::identificasuperregiuneobiectiv(){	// indicele superregiunii din care imi lipsesc cat mai putine, dar imi lipseste ceva
+size_t Bot::identificasuperregiuneobiectiv() {	// indicele superregiunii din care imi lipsesc cat mai putine, dar imi lipseste ceva
 	size_t catam[50];	// cat detin din fiecare superregiune;
-	size_t i,j,k;
-	for ( i= 0; i<50; i++)
+	size_t i, j, k;
+	for (i = 0; i < 50; ++i)
 		catam[i] = 0;
-	for (i = 0 ; i < ownedRegions.size(); ++i)
+	for (i = 0; i < ownedRegions.size(); ++i)
 		catam[regions[i].getSuperRegion()]++;
 	size_t aux = 100,ret = 300;
 	for ( i = 0 ; i < 50 ; i++)
@@ -20,7 +20,6 @@ size_t	Bot::identificasuperregiuneobiectiv(){	// indicele superregiunii din care
 			aux = superRegions[i].size() - catam[i];
 			ret = i;
 		}
-//	std::cout<<" regiuneobiectiv = "<< ret<< " ";fflush(stdin);
 	return ret;
 }
 void Bot::creazaproiecte(int pass){	
@@ -32,10 +31,9 @@ void Bot::creazaproiecte(int pass){
 	size_t superregiune_obiectiv;
 	if(pass == 0)
 		superregiune_obiectiv = Bot::identificasuperregiuneobiectiv();
-	if( (superregiune_obiectiv == 300) && (pass == 0))
+	if((superregiune_obiectiv == 300) && (pass == 0))
 		return;
-	for ( i = 0 ; i < ownedRegions.size(); ++i)
-//	if(regions[ownedRegions[i]].getSuperRegion() == superregiune_obiectiv || pass)
+	for (i = 0 ; i < ownedRegions.size(); ++i)
 	{
 		rc = ownedRegions[i];	// regiunea curenta;
 		for( j = 0; j < regions[rc].getNbNeighbors(); ++j){
@@ -54,28 +52,19 @@ void Bot::creazaproiecte(int pass){
 						placenr = armiesLeft;
 						movenr = placenr + nrarmate[rc] -1;
 					}
-					(placenr < 0)?0:placenr;
-					proiecte.push_back( proiect(rc, placenr, rc, nc, movenr, 3) );
-					nrarmate[rc] -= movenr -1 - placenr; 
+					(placenr < 0) ? 0 : placenr;
+					proiecte.push_back(proiect(rc, placenr, rc, nc, movenr, 3));
+					nrarmate[rc] -= movenr - 1 - placenr; 
 					// a modificat regions.Armies ca sa nu se bazeze pe armatele respective in urmatoarele mutari!
 					armiesLeft -= placenr;
 					// a modificat si armiesLeft ca su nu mai faca proiecte. Va trebui schimbat asta in momentul in care sunt folosite prioritatile.
-//					std::cout<<"gasit proiect de atac movenr = "<<movenr<<" placenr = "<<placenr<< " nc = "<<nc<< " ";
-//					fflush(stdin);
 					if(movenr)
 						ammutari = 1;
 				}
-//				else if (pass == 0 && armiesLeft > 0)
-//					ncsalvat = rc;
 		}
 	}
-//	if( ncsalvat && armiesLeft ){
-//		placenr = armiesLeft;
-//		armiesLeft = 0;
-//		proiecte.push_back(proiect(rc, placenr, rc, nc, 0, 0));
-//	}
-
 }
+
 Bot::Bot() :
 		armiesLeft(0), timebank(0), timePerMove(0), maxRounds(0), parser(this), phase(NONE)
 {
@@ -93,7 +82,6 @@ void Bot::playGame()
 
 void Bot::pickStartingRegion()
 {
-	// START HERE!
 	std::cout << startingRegionsreceived.front() << std::endl;
 }
 
@@ -116,7 +104,7 @@ void Bot::placeArmies()
 				pus1 = 1;
 			std::cout << botName << " place_armies " << proiecte[i].placein << " " << proiecte[i].placenr;
 		}
-	// START HERE!
+
 	if(armiesLeft > 0){
 		for( i = 0; i< ownedRegions.size(); ++i)
 			for (j = 0; j< regions[ownedRegions[i]].getNbNeighbors(); ++j)
@@ -137,7 +125,7 @@ void Bot::placeArmies()
 			std::cout << ",";
 		else
 			pus1 = 1;
-		region = ownedRegions[1];//std::rand() % ownedRegions.size();
+		region = ownedRegions[1]; //std::rand() % ownedRegions.size();
 		std::cout << botName << " place_armies " << ownedRegions[region] << " " << armiesLeft;
 	}
 	std::cout << std::endl;
@@ -146,12 +134,6 @@ void Bot::placeArmies()
 
 void Bot::makeMoves()
 {
-	// START HERE!
-	/// Output No moves when you have no time left or do not want to commit any moves.
-	// std::cout << "No moves "  << std::endl;
-	/// Anatomy of a single move
-	//  std::cout << botName << " attack/transfer " << from << " " << to << " "<< armiesMoved;
-	/// When outputting multiple moves they must be seperated by a comma
 	std::vector<std::string> moves;
 	if(ammutari)
 	for (size_t i = 0; i < proiecte.size(); ++i)
@@ -164,27 +146,6 @@ void Bot::makeMoves()
 	if((ammutari == 0) || (proiecte.size() == 0))
 		moves.push_back("No moves");
 	proiecte.clear();
-/*
-	for (size_t j = 0; j < ownedRegions.size(); ++j)
-	{
-		std::stringstream move;
-		int i = ownedRegions[j];
-		if (regions[i].getArmies() <= 1)
-			continue;
-
-		int target = regions[i].getNeighbor(std::rand() % regions[i].getNbNeighbors());
-		// prefer enemy regions
-		for ( unsigned k = 0; k < 5; ++k)
-		{
-			if(regions[target].getOwner() != ME) break;
-			target = regions[i].getNeighbor(std::rand() % regions[i].getNbNeighbors());
-		}
-		move << botName << " attack/transfer " << i << " "
-				<< target << " "
-				<< (regions[i].getArmies() - 1);
-		moves.push_back(move.str());
-	}
-*/
 	std::cout << string::join(moves) << std::endl;
 }
 
@@ -214,7 +175,6 @@ void Bot::addSuperRegion(const unsigned& noSuperRegion, const int&reward)
 	}
 	superRegions[noSuperRegion] = SuperRegion(reward);
 	rewardsuperregiuni[noSuperRegion] = reward;
-
 }
 
 void Bot::setBotName(const std::string& name)
@@ -261,8 +221,6 @@ void Bot::opponentPlacement(const unsigned & noRegion, const int & nbArmies)
 	// suppress unused variable warnings
 	(void) noRegion;
 	(void) nbArmies;
-
-	// TODO: STUB
 }
 void Bot::opponentMovement(const unsigned &noRegion, const unsigned &toRegion, const int &nbArmies)
 {
@@ -270,15 +228,12 @@ void Bot::opponentMovement(const unsigned &noRegion, const unsigned &toRegion, c
 	(void) noRegion;
 	(void) toRegion;
 	(void) nbArmies;
-
-	// TODO: STUB
 }
 
 void Bot::startDelay(const int& delay)
 {
 	// suppress unused variable warnings
 	(void) delay;
-	// TODO: STUB
 }
 void Bot::setPhase(const Bot::Phase pPhase)
 {
