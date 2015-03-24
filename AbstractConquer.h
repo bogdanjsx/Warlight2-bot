@@ -13,7 +13,7 @@ class AbstractConquer : public virtual Action
 {
 public:
 	// no parameters
-	virtual std::string getType() const { return type; }
+	virtual std::string getType() { return type; }
 
 protected:
 	std::string type = "conquer";

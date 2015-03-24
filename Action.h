@@ -1,7 +1,6 @@
 #ifndef ACTION_H 
 #define ACTION_H
 
-
 /*
 	This class represents an interface for the objects that will compute the way the bot acst on the
 	map. After being inherited the obeject may create projects that will conquer efficiently a 
@@ -19,10 +18,7 @@
 #include <cstring>
 #include <vector>
 
-
-
-class Action 
-{
+class Action {
 public:
 	/*
 		Determine the name of the object in question.
@@ -39,9 +35,9 @@ public:
 		within a strategy of whatever the object is supposed to do.
 	*/
 	virtual std::vector<Project> getProjects() = 0; 
+
 	Action() {}
 	virtual ~Action() {}
-
 };
 
 #endif

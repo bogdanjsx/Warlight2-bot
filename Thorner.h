@@ -8,7 +8,6 @@
 	enemy does'nt get bonus on some critical regions.
 */
 
-
 class Thorner : public virtual AbstractThorn {
 public:
 	Thorner();
@@ -16,6 +15,5 @@ public:
 	// return a vector of projects 
 	virtual std::vector<Project> getProjects();
 };
-
 
 #endif
