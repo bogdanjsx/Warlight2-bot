@@ -24,6 +24,7 @@ public:
 	inline int getSuperRegion() const { return superRegion; }
 	int getNeighbor(const size_t& index) const ;
 	int getNbNeighbors() const;
+	int getId() const;
 
 private:
 	std::vector<int> neighbors;

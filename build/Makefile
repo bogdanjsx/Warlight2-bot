@@ -49,12 +49,18 @@ SOURCES       = ../Bot.cpp \
 		../main.cpp \
 		../Parser.cpp \
 		../Region.cpp \
-		../SuperRegion.cpp 
+		../SuperRegion.cpp \
+		../Movement.cpp \
+		../Project.cpp \
+		../MapSearch.cpp 
 OBJECTS       = Bot.o \
 		main.o \
 		Parser.o \
 		Region.o \
-		SuperRegion.o
+		SuperRegion.o \
+		Movement.o \
+		Project.o \
+		MapSearch.o
 DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/common/shell-unix.conf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/common/unix.conf \
@@ -365,6 +371,34 @@ SuperRegion.o: ../SuperRegion.cpp ../SuperRegion.h \
 		../tools/noncopyable.hpp \
 		../Region.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o SuperRegion.o ../SuperRegion.cpp
+
+Movement.o: ../Movement.cpp ../Movement.h \
+		../Bot.h \
+		../main.h \
+		../tools/noncopyable.hpp \
+		../Parser.h \
+		../Region.h \
+		../SuperRegion.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Movement.o ../Movement.cpp
+
+Project.o: ../Project.cpp ../Project.h \
+		../Bot.h \
+		../main.h \
+		../tools/noncopyable.hpp \
+		../Parser.h \
+		../Region.h \
+		../SuperRegion.h \
+		../Movement.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Project.o ../Project.cpp
+
+MapSearch.o: ../MapSearch.cpp ../MapSearch.h \
+		../Bot.h \
+		../main.h \
+		../tools/noncopyable.hpp \
+		../Parser.h \
+		../Region.h \
+		../SuperRegion.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o MapSearch.o ../MapSearch.cpp
 
 ####### Install
 

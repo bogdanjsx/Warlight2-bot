@@ -40,3 +40,7 @@ int Region::getNeighbor(const size_t& index) const
 	return neighbors.at(index);
 }
 
+int Region::getId() const
+{
+	return id;
+}

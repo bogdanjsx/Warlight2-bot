@@ -3,7 +3,7 @@
 
 // stl
 #include <vector>
-
+#include <queue>
 
 // project
 #include "Bot.h"
@@ -11,6 +11,9 @@
 #include "Parser.h"
 #include "Region.h"
 #include "SuperRegion.h"
+
+// constants
+#define NOT_SET -1
 
 class MapSearch
 {
@@ -23,21 +26,21 @@ public:
 	static MapSearch& get_instance();
 	/**
 	 * Calculates the closest front to a region
-	 * @param ID of the region to calculate closest front
-	 * @return ID of the closest front
+	 * @param Region to calculate closest front
+	 * @return Region which is closest front
 	 */
-	unsigned get_closest_front(const unsigned& region);
+	Region get_closest_front(const Region& region);
 	/**
 	 * Calculates minimum distance between 2 regions
 	 * @param ID of source region
 	 * @param ID of destination region
 	 * @return Number of regions to be traversed between the 2 parameters
 	 */
-	unsigned get_min_distance(const unsigned& fromRegion, const unsigned& toRegion);
+	unsigned get_min_distance(const Region& fromRegion, const Region& toRegion, unsigned distance = 0);
 	/**
 	 * Gets all the regions on the shortest road between 2 regions
-	 * @param ID of source region
-	 * @param ID of destination region
+	 * @param Source region
+	 * @param frontDistancesestination region
 	 * @return A vector containing IDs of all regions on the road
 	 */
 	std::vector<unsigned> road_to(const unsigned& fromRegion, const unsigned& toRegion);
@@ -47,6 +50,7 @@ private:
 	std::vector<std::vector<unsigned> > distances;
 	// holds minimum roads after they are calculated
 	std::vector<std::vector<unsigned> > roads;
+	std::vector<Region> regions;
 
 	MapSearch();
 	virtual ~MapSearch();
