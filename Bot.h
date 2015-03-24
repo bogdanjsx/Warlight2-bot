@@ -14,6 +14,7 @@
 #include "Region.h"
 #include "SuperRegion.h"
 
+#define MAX_REGIONS
 
 
 class Bot: boost::noncopyable
@@ -35,9 +36,9 @@ public:
 	std::vector<proiect> proiecte;
 	size_t identificasuperregiuneobiectiv();
 	void creazaproiecte(int pass);
-	int nrarmate[1000];
+	int nrarmate[MAX_REGIONS];
 	int ammutari;
-	int rewardsuperregiuni[1000];
+	int rewardsuperregiuni[MAX_REGIONS];
 	Bot();
 	virtual ~Bot();
 

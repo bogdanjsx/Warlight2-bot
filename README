@@ -1,0 +1,24 @@
+Am lucrat pe scheletul de cod al botului de start de la : https://github.com/pizzard/warlight-starterbot
+
+Am editat fisierul Bot.h si am introdus o structura numita proiect. Un proiect inseamna ceva ce poate face in cadrul mutarilor sale : a plasa unitati, a muta unitati fie pentru atac fie in cadrul propriilor teritorii.
+Ideea este ca programul sa poata fi imbunatatit prin adaugarea unor noi proiecte.
+Structura proiect contine campurile care ii spun unde plaseaza unitati, unde ataca, cate, etc precum si un camp prioritate . Campul prioritate nu este deocamdata folosit, dar poate fi util in cazul proiectelor care rivalizeaza pentru aceleasi resurse.
+Structura este interna clasei Bot.
+
+Toate functiile folosite sunt interne clasei Bot.
+
+Programul identifica superregiunea pe care doreste sa o obtina si apoi isi canalizeaza resursele pentru a o obtine.
+Functia identificasuperregiuneobiectiv returneaza indicele unei superregiuni din care am cel putin un teritoriu si imi lipsesc cel mai putine teritorii (dar imi lipseste ceva). Functia nu tine seama deocamdata de bonusul acordat de diferitele superregiuni. Nici de cat de bine sunt aparate teritoriile respective.
+Odata ce a identificat aceasta regiune, functia creazaproiecte cu argumentul pass = 0 adauga elemente intr-un vector de structuri "proiect" care reprezinta etape in a obtine controlul total al superregiunii respective.
+De exemplu, retine cat trebuie sa plaseze, unde, cu cat trebuie sa atace, ce trebuie sa atace.
+In cazul in care nu are suficiente armate pentru a realiza un atac in aceasta runda, plaseaza armate astfel incat sa realizeze atacul runda urmatoare.
+
+Aceeasi functie este apoi apelata cu argumentul pass = 1 care inseamna crearea de proiecte pentru a cuceri orice teritoriu indiferent de superregiune.
+
+Am de asemenea un vector nrarmate care este de fapt o copie pentru regions.getArmies(). Am realizat-o pentru ca este modificata astfel incat dupa ce am creat un proiect care foloseste armatele dintr-o regiune sa stie ca armatele respective nu mai sunt disponibile pentru un alt atac.
+
+Apoi in cadrul functiei placeArmies incearca sa plasese unitatile in functie de proiecte. Daca i-au mai ramas unitati, cauta o regiune de granita (din care poate ataca) si plaseaza acolo. Am mentinut si varianta de plasament complet aleator pentru situatia in care am vre-un bug in parcurgerea anterioara. (nu se poate sa nu existe o regiune de granita :) )
+
+Functia makeMoves trimite mutarile conform cu proiectele realizate.
+
+Exista verificari redundante de exemplu pentru a verifica daca a realizat vreo mutare pentru ca programul sa functioneze chiar daca are bug-uri.
