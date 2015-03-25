@@ -7,7 +7,6 @@
 	This class is contains the actual implementation for the way the bot will conquer a superregion.
 */
 
-
 class Conquerer : public virtual AbstractConquer 
 {
 public:
@@ -16,6 +15,5 @@ public:
 	// return a vector of projects 
 	virtual std::vector<Project> getProjects();
 };
-
 
 #endif

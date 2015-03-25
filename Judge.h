@@ -31,24 +31,40 @@ public:
     /**
      * @return: accepted projects for accomplishment
      */
-    std::vector<Project, int> getAffordableProjects() const;
+    std::vector<Project> getAffordableProjects() const { return acceptedProjects; }
+
+    // Armies available for deployment in the current round
+    void setAvailableArmies(int armiesNb);
 
     // Comparator needed for the priority queue
-    class Comparator 
+    class ProjectComparator
     {
     public:
         bool operator() (const Project& p1, const Project& p2) const
         {
-            return p1.getPriority() > p2.getPriority();
+            return (p1.getPriority() / p1.getArmiesNeeded()) > (p2.getPriority() / p1.getArmiesNeeded());
         }
     };
+
+    class MovementComparator
+    {
+    public:
+        bool operator() (const Movement& m1, const Movement& m2) const
+        {
+            return (m1.getPriority() / m1.getArmiesNeeded()) > (m2.getPriority() / m2.getArmiesNeeded());
+        }
+    };
+
+    // TODO: Add methods for reseting the queue and the acceptedProjects vector
 
 private:
     // All types of actions that can be done (conquer, attack, build defending walls, etc.)
     std::vector<Action*> actions;
-    std::priority_queue<Project, std::vector<Project>, Comparator> projects;
-    // Accepted projects along with the troops needed or / distributed by the Judge
-    std::vector<std::pair<Project, int> > acceptedProjects;
+    // It's better to use a vector then sort it one time, instead of a p_queue
+    std::vector<Project> projects;
+    // Accepted projects by the Judge
+    std::vector<Project> acceptedProjects;
+    int availableArmies;
     
     // TODO: Decide if a MapSearch object is needed inside Judge
 

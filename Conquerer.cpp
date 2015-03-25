@@ -26,7 +26,7 @@ Conquerer::~Conquerer()
 {
 }
 
-std::vector<Project> Conquerer:: getProjects() 
+std::vector<Project> Conquerer::getProjects() 
 {
 	std::vector<Project> projects;
 	// TODO : implement

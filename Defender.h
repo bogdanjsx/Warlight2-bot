@@ -7,7 +7,6 @@
 	This class is contains the actual implementation for the way the bot will defend.
 */
 
-
 class Defender : public virtual AbstractDefence {
 public:
 	Defender();
@@ -15,6 +14,5 @@ public:
 	// return a vector of projects 
 	virtual std::vector<Project> getProjects();
 };
-
 
 #endif
