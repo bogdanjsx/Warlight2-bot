@@ -68,6 +68,13 @@ void Judge::calculateProjectsDistribution()
         m++;
     }
 
+    // Still have remained with some armies, why to waste them?!
+    if (availableArmies > 0) {
+        movements[m].setArmiesNeeded(availableArmies);
+        lastProjectAccepted.addMovement(movements[m]);
+        availableArmies = 0;
+    }
+
     // If a last project can be supported
     if (lastProjectAccepted.getArmiesNeeded() > 0)
         acceptedProjects.push_back(lastProjectAccepted);
