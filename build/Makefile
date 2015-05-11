@@ -14,8 +14,8 @@ CC            = gcc
 CXX           = g++
 DEFINES       = 
 CFLAGS        = -m64 -pipe -g -Wall -W -D_REENTRANT -fPIE $(DEFINES)
-CXXFLAGS      = -m64 -pipe -g -DSTARTERBOT_DEBUG -std=c++0x -Wall -W -D_REENTRANT -fPIE $(DEFINES)
-INCPATH       = -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -I../../warlight-starterbot-master -I../../warlight-starterbot-master -I.
+CXXFLAGS      = -m64 -pipe -g -DSTARTERBOT_DEBUG -std=c++11 -Wall -W -D_REENTRANT -fPIE $(DEFINES)
+INCPATH       = -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -I../../Warlight2-bot -I../../Warlight2-bot -I.
 LINK          = g++
 LFLAGS        = -m64
 LIBS          = $(SUBLIBS) -lpthread 
@@ -314,7 +314,7 @@ distclean: clean
 
 
 zip: starterbot
-	rm -f bot.zip && mkdir -p target && cp -r /home/bogdan/code/warlight-starterbot-master/*.h target/ && cp -r /home/bogdan/code/warlight-starterbot-master/*.cpp target/ && cp -r /home/bogdan/code/warlight-starterbot-master/tools/ target/ && cd target && zip -r ../bot.zip ./* && cd .. && rm -r target
+	rm -f bot.zip && mkdir -p target && cp -r /home/bogdan/code/Warlight2-bot/*.h target/ && cp -r /home/bogdan/code/Warlight2-bot/*.cpp target/ && cp -r /home/bogdan/code/Warlight2-bot/tools/ target/ && cd target && zip -r ../bot.zip ./* && cd .. && rm -r target
 
 check: first
 

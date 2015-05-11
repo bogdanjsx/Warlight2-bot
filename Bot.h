@@ -101,6 +101,7 @@ public:
 	void updateRegion(const unsigned& noRegion, const std::string& playerName, const int& nbArmies);
 
 	void resetRegionsOwned();
+	void countWastelands();
 
 private:
 	std::ifstream in;
@@ -112,6 +113,7 @@ private:
 	std::vector<unsigned> opponentStartingRegions;
 	std::vector<int> ownedRegions;
 	std::vector<int> wastelands;
+	std::vector<int> nr_wastelands;
 	int armiesLeft;
 	int timebank;
 	int timePerMove;

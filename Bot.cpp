@@ -88,9 +88,59 @@ void Bot::playGame()
 	parser.parseInput();
 }
 
+// calculate priority of a region
+// given the super reward, super size, and super nuber of wastelands
+// expand on this if needed
+double calculatePriority(int reward, int size, int wastelands) {
+	if(!reward)
+		return -100;
+	return (1000 * (static_cast<double> (reward) - (static_cast<double>(wastelands) * 4))) / (pow(size, 3));
+}
+
+// get index of maximum elemnt in v
+int getMaxIndex(const std::vector<double>& v) {
+	double maxim = -999;
+	int ret = 0;
+
+	for (int i = 0; i < v.size(); ++i) {
+		if(v[i] > maxim) {
+			maxim = v[i];
+			ret = i;
+		}
+	}
+
+	return ret;
+}
+
+// count number of wastelands in each superregion
+void Bot::countWastelands() {
+	nr_wastelands.resize(superRegions.size(), 0);
+
+	for (int i = 0; i < wastelands.size(); ++i)
+	{
+		++nr_wastelands[regions[wastelands[i]].getSuperRegion()];
+	}
+}
+
+// pick starting region based on priorities
 void Bot::pickStartingRegion()
 {
-	std::cout << startingRegionsreceived.front() << std::endl;
+	countWastelands();
+	int left = static_cast<int> (startingRegionsreceived.size());
+	std::vector<int> supers(left); // superregiunea din care face parte
+	std::vector<int> rewards(left); // bonusul ei
+	std::vector<int> sizes(left); // numarul de teritorii din ea
+	std::vector<double> priorities(left); // prioritatile
+
+	for (int i = 0; i < left; ++i)
+	{
+		supers[i] = regions[startingRegionsreceived[i]].getSuperRegion();
+		rewards[i] = superRegions[supers[i]].get_reward();
+		sizes[i] = superRegions[supers[i]].size();
+		priorities[i] = calculatePriority(rewards[i], sizes[i], nr_wastelands[supers[i]]);
+	}
+
+	std::cout << startingRegionsreceived[getMaxIndex(priorities)] << '\n'; 
 }
 
 void Bot::placeArmies()
